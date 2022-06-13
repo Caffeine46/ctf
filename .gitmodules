@@ -1,0 +1,3 @@
+[submodule "ctf"]
+	path = ctf
+	url = git@github.com:Caffeine46/ctf.git
