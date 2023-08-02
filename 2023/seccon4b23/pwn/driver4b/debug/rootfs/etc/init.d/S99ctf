@@ -1,0 +1,18 @@
+#!/bin/sh
+# Setup
+mdev -s
+mount -t proc none /proc
+stty -opost
+
+# Install kernel driver
+insmod /root/ctf4b.ko
+mknod -m 666 /dev/ctf4b c `grep ctf4b /proc/devices | awk '{print $1;}'` 0
+
+# User shell
+echo -e "\nBoot took $(cut -d' ' -f1 /proc/uptime) seconds\n"
+echo "[ Welcome to SECCON Beginners CTF 2023 ]"
+setsid cttyhack setuidgid 0 sh
+
+# Cleanup
+umount /proc
+poweroff -d 0 -f
